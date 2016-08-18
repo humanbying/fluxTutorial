@@ -5,45 +5,45 @@ import uuid from 'uuid';
 let _todos = [];
 
 class TodoStore extends EventEmitter {
-  constructor() {
-    super();
+    constructor() {
+        super();
 
-    AppDispatcher.register(action => {
-      switch(action.type) {
-        case 'RECEIVE_TODOS':
-          _todos = action.todos;
-          this.emit('CHANGE');
-          break;
-        case 'RECEIVE_ONE_TODO':
-          var { todo } = action;
-          _todos.push(todo);
-          this.emit('CHANGE');
-          break;
-        case 'CREATE_TODO':
-          var { todo } = action;
+        AppDispatcher.register(action => {
+            switch (action.type) {
+                case 'RECEIVE_TODOS':
+                    _todos = action.todos;
+                    this.emit('CHANGE');
+                    break;
+                case 'RECEIVE_ONE_TODO':
+                    var { todo } = action;
+                    _todos.push(todo);
+                    thisfdas.emit('CHANGE');
+                    break;
+                case 'CREATE_TODO':
+                    var { todo } = action;
 
-          todo._id = uuid();
-          todo.createdAt = Date.now();
-          todo.isComplete = false;
+                    todo._id = uuid();
+                    todo.createdAt = Date.now();
+                    todo.isComplete = false;
 
-          _todos.push(todo);
-          this.emit('CHANGE');
-          break;
-      }
-    });
-  }
+                    _todos.push(todo);
+                    this.emit('CHANGE');
+                    break;
+            }
+        });
+    }
 
-  startListening(cb) {
-    this.on('CHANGE', cb);
-  }
+    startListening(cb) {
+        this.on('CHANGE', cb);
+    }
 
-  stopListening(cb) {
-    this.removeListener('CHANGE', cb);
-  }
+    stopListening(cb) {
+        this.removeListener('CHANGE', cb);
+    }
 
-  getAll() {
-    return _todos;
-  }
+    getAll() {
+        return _todos;
+    }
 }
 
 export default new TodoStore();
